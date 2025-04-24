@@ -1,5 +1,7 @@
 # ❤️ Matplotlib.mbt 🌙
 
+[🇨🇳简体中文](#️-matplotlibmbt--1)
+
 ## ✨ Project Overview
 
 `matplotlib.mbt` is an innovative tool built upon `python.mbt`, empowering developers to harness the capabilities of the powerful Python plotting library, Matplotlib, using the Moonbit language. By doing so, we can leverage Moonbit's robust type safety features and modern language ecosystem to bring a fresh perspective to data visualization.
@@ -12,7 +14,11 @@ Before diving into `matplotlib.mbt`, please ensure your development environment 
 
 **Important Note**: This project requires Python 3.9 or higher. For the best experience, we strongly recommend using the latest stable version.
 
+💡 Recommended: Use Anaconda: For data science and machine learning projects, we highly recommend installing Anaconda. Anaconda is a distribution of Python and conda package manager, which includes many commonly used data science libraries (such as NumPy, SciPy, Matplotlib, etc.), helping you manage Python environments and dependencies more easily.
+
 **🐧 Linux (Debian/Ubuntu)**
+
+If you are not using Anaconda, please ensure that Python 3.9 or higher and the Python development headers are installed on your system.
 
 ```bash
 sudo apt-get update && sudo apt-get install python3.13 python3.13-dev
@@ -29,6 +35,26 @@ brew install python@3.13
 1.  Visit the [official Python website](https://www.python.org/downloads/windows/)
 2.  Download the latest 3.x version installer
 3.  During installation, make sure to check the "Add Python to PATH" option
+
+### 📊 Matplotlib Installation
+
+`matplotlib.mbt` relies on the Python Matplotlib library. You can install it using pip, Python's package installer.
+
+If you **do not** have Anaconda installed, open your terminal or command prompt and run the following command:
+
+Bash
+
+```
+pip install matplotlib
+```
+
+If you **have** installed Anaconda, Matplotlib is usually pre-installed. If it's not, you can install it using conda:
+
+Bash
+
+```
+conda install matplotlib
+```
 
 ### ✅ Environment Verification
 
@@ -64,7 +90,10 @@ Modify the `moon.pkg.json` file in your project's root directory by adding the f
 ```json
 {
   "import": [
-    "Kaida-Amethyst/python/python"
+    {
+      "path" : "Kaida-Amethyst/matplotlib",
+      "alias" : "plt"
+    }
   ],
   "link": {
     "native": {
@@ -125,14 +154,14 @@ fn main {
   let ys = t.map(fn (t) {13.0 * @math.cos(t) - 5.0 * @math.cos(2.0 * t) - 2.0 * @math.cos(3.0 * t) - @math.cos(4.0 * t)})
 
   @plt.plot(xs, ys)
-  @plt.title("❤️ Heart Curve ❤️")
+  @plt.title("Moonbit x Matplotlib")
   @plt.show()
 }
 ```
 
 Running this Moonbit code will generate a beautiful heart-shaped plot, like this:
 
-[example.png](./example.png)
+![example.png](./example.png)
 
 The equivalent Python code is as follows for your comparison:
 
@@ -146,7 +175,7 @@ x = 16 * np.sin(t)**3
 y = 13 * np.cos(t) - 5 * np.cos(2*t) - 2 * np.cos(3*t) - np.cos(4*t)
 
 plt.plot(x, y)
-plt.title("❤️ Heart Curve ❤️")
+plt.title("Moonbit x Matplotlib")
 plt.show()
 ```
 
@@ -184,7 +213,11 @@ We warmly welcome your contributions to make `matplotlib.mbt` even better! You c
 
 **重要提示**：本项目要求 Python 3.9 或更高版本。为了获得最佳体验，我们强烈建议使用最新的稳定版本。
 
+💡 推荐使用 Anaconda：对于数据科学和机器学习项目，我们强烈推荐安装 Anaconda。Anaconda 是一个包含了 Python、conda 包管理器以及众多常用数据科学库（如 NumPy, SciPy, Matplotlib 等）的发行版本，它可以帮助你更轻松地管理 Python 环境和依赖。
+
 **🐧 Linux (Debian/Ubuntu)**
+
+如果你不使用 Anaconda，请确保你的系统安装了 Python 3.9 或更高版本以及 Python 的开发文件。
 
 ```bash
 sudo apt-get update && sudo apt-get install python3.13 python3.13-dev
@@ -201,6 +234,26 @@ brew install python@3.13
 1.  访问 [Python 官方网站](https://www.python.org/downloads/windows/)
 2.  下载最新的 3.x 版本安装包
 3.  在安装过程中，请务必勾选 "Add Python to PATH" 选项
+
+### 📊 Matplotlib 安装
+
+`matplotlib.mbt` 需要依赖 Python 的 Matplotlib 库。你可以使用 pip（Python 的包管理器）来安装它。
+
+如果你**没有**安装 Anaconda，请打开你的终端或命令提示符并运行以下命令：
+
+Bash
+
+```
+pip install matplotlib
+```
+
+如果你**使用**了 Anaconda，Matplotlib 通常已经预装。如果未安装，你可以使用 conda 来安装：
+
+Bash
+
+```
+conda install matplotlib
+```
 
 ### ✅ 环境验证
 
@@ -236,7 +289,10 @@ moon add Kaida-Amethyst/python
 ```json
 {
   "import": [
-    "Kaida-Amethyst/python/python"
+    {
+      "path" : "Kaida-Amethyst/matplotlib",
+      "alias" : "plt"
+    }
   ],
   "link": {
     "native": {
@@ -297,14 +353,14 @@ fn main {
   let ys = t.map(fn (t) {13.0 * @math.cos(t) - 5.0 * @math.cos(2.0 * t) - 2.0 * @math.cos(3.0 * t) - @math.cos(4.0 * t)})
 
   @plt.plot(xs, ys)
-  @plt.title("❤️ 心形曲线 ❤️")
+  @plt.title("Moonbit x Matplotlib")
   @plt.show()
 }
 ```
 
 运行这段 Moonbit 代码，你将会看到一个美丽的心形曲线图，就像这样：
 
-[example.png](./example.png)
+![example.png](./example.png)
 
 等效的 Python 代码如下：
 
@@ -318,7 +374,7 @@ x = 16 * np.sin(t)**3
 y = 13 * np.cos(t) - 5 * np.cos(2*t) - 2 * np.cos(3*t) - np.cos(4*t)
 
 plt.plot(x, y)
-plt.title("❤️ 心形曲线 ❤️")
+plt.title("Moonbit x Matplotlib")
 plt.show()
 ```
 
