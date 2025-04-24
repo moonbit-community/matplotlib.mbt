@@ -1,0 +1,13 @@
+{
+  "name": "Kaida-Amethyst/matplotlib",
+  "version": "0.1.0",
+  "deps": {
+    "Kaida-Amethyst/python": "0.1.0"
+  },
+  "readme": "README.md",
+  "repository": "",
+  "license": "Apache-2.0",
+  "keywords": [],
+  "description": "",
+  "source": ""
+}
