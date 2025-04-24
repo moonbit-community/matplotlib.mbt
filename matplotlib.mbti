@@ -1,0 +1,58 @@
+package "Kaida-Amethyst/matplotlib"
+
+import(
+  "Kaida-Amethyst/python"
+)
+
+// Values
+fn new() -> Matplotlib!
+
+fn plot(Array[Double], Array[Double], color~ : Color = .., label~ : String? = .., linewidth~ : Double = .., alpha~ : Double = .., linestyle~ : LineStyle = ..) -> Unit
+
+fn save(String, dpi~ : Int = ..) -> Unit
+
+fn show() -> Unit
+
+fn title(String) -> Unit
+
+fn xlim(Double, Double) -> Unit
+
+fn ylim(Double, Double) -> Unit
+
+// Types and methods
+pub(all) enum Color {
+  Red
+  Green
+  Blue
+  Yellow
+  Black
+  Cyan
+  White
+  Hex(String)
+}
+impl Show for Color
+
+pub(all) enum LineStyle {
+  Solid
+  Dashed
+  Dotted
+  DashDot
+}
+impl Show for LineStyle
+
+pub struct Matplotlib {
+  pyplot : @python.PyModule
+  pylab : @python.PyModule
+}
+
+pub type! MatplotlibError {
+  LoadPyPlotError
+  LoadPylabError
+  LoadFuncError(String)
+}
+impl Show for MatplotlibError
+
+// Type aliases
+
+// Traits
+
