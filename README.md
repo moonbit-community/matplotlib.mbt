@@ -201,10 +201,6 @@ We warmly welcome your contributions to make `matplotlib.mbt` even better! You c
 
 ------
 
-好的，很高兴能帮助你完善你的 `matplotlib.mbt` 仓库的 README 文件！这确实是一个很有趣的项目，将 Moonbit 的类型安全带到 Python 的绘图生态中。
-
-以下是润色和补充后的 README 文件，我添加了一些 emoji，并补充了缺失的 Python 代码示例：
-
 # ❤️ Matplotlib.mbt 🌙
 
 ## ✨ 项目简介
