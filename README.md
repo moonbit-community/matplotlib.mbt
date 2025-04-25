@@ -153,13 +153,19 @@ fn main {
   let xs = t.map(fn (t) {16.0 * @math.sin(t) * @math.sin(t) * @math.sin(t)})
   let ys = t.map(fn (t) {13.0 * @math.cos(t) - 5.0 * @math.cos(2.0 * t) - 2.0 * @math.cos(3.0 * t) - @math.cos(4.0 * t)})
 
-  @plt.plot(xs, ys)
+  @plt.plot(xs, ys, color=@plt.Red, linewidth=5)
   @plt.title("Moonbit x Matplotlib")
   @plt.show()
 }
 ```
 
-Running this Moonbit code will generate a beautiful heart-shaped plot, like this:
+Running this Moonbit code:
+
+```moonbit
+moon run main.mbt --target native
+```
+
+It will generate a beautiful heart-shaped plot, like this:
 
 ![example.png](./example.png)
 
@@ -352,13 +358,19 @@ fn main {
   let xs = t.map(fn (t) {16.0 * @math.sin(t) * @math.sin(t) * @math.sin(t)})
   let ys = t.map(fn (t) {13.0 * @math.cos(t) - 5.0 * @math.cos(2.0 * t) - 2.0 * @math.cos(3.0 * t) - @math.cos(4.0 * t)})
 
-  @plt.plot(xs, ys)
+  @plt.plot(xs, ys, color=@plt.Red, linewidth=5)
   @plt.title("Moonbit x Matplotlib")
   @plt.show()
 }
 ```
 
-运行这段 Moonbit 代码，你将会看到一个美丽的心形曲线图，就像这样：
+运行这段 Moonbit 代码，使用下面的命令：
+
+```moonbit
+moon run main.mbt --target native
+```
+
+你将会看到一个美丽的心形曲线图，就像这样：
 
 ![example.png](./example.png)
 

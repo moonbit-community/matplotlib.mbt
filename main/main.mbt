@@ -15,9 +15,7 @@ fn main {
     xs,
     ys,
     color=@plt.Red,
-    alpha=0.5,
-    linewidth=4,
-    linestyle=@plt.Dashed,
+    linewidth=5,
   )
   @plt.title("Moonbit x Matplotlib")
   @plt.show()
