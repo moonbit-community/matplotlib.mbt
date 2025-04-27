@@ -7,19 +7,29 @@ import(
 // Values
 fn new() -> Matplotlib!
 
-fn plot(Array[Double], Array[Double], color~ : Color = .., label~ : String? = .., linewidth~ : Double = .., alpha~ : Double = .., linestyle~ : LineStyle = ..) -> Unit
-
 fn save(String, dpi~ : Int = ..) -> Unit
+
+fn set_title(Axes, String) -> Unit
+
+fn set_xlim(Axes, Double, Double) -> Unit
+
+fn set_ylim(Axes, Double, Double) -> Unit
 
 fn show() -> Unit
 
-fn title(String) -> Unit
-
-fn xlim(Double, Double) -> Unit
-
-fn ylim(Double, Double) -> Unit
+fn subplots() -> (Figure, Axes)
 
 // Types and methods
+pub struct Axes {
+  // private fields
+}
+impl Axes {
+  plot(Self, Array[Double], Array[Double], color~ : Color = .., label~ : String? = .., linewidth~ : Double = .., alpha~ : Double = .., linestyle~ : LineStyle = ..) -> Unit
+  set_title(Self, String) -> Unit
+  set_xlim(Self, Double, Double) -> Unit
+  set_ylim(Self, Double, Double) -> Unit
+}
+
 pub(all) enum Color {
   Red
   Green
@@ -28,9 +38,11 @@ pub(all) enum Color {
   Black
   Cyan
   White
-  Hex(String)
+  Rgb(Int, Int, Int)
 }
 impl Show for Color
+
+type Figure
 
 pub(all) enum LineStyle {
   Solid

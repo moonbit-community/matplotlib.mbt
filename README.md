@@ -147,14 +147,20 @@ Run this script in PowerShell:
 Let's draw a romantic heart curve using `matplotlib.mbt`!
 
 ```moonbit
+let sin : (Double) -> Double = @math.sin
+let cos : (Double) -> Double = @math.cos
+const PI: Double = @math.PI
+
 fn main {
   let n = 5000 // Number of data points
-  let t : Array[Double] = Array::makei(n, fn (i) {2.0 * @math.PI * i.to_double() / n.to_double()})
-  let xs = t.map(fn (t) {16.0 * @math.sin(t) * @math.sin(t) * @math.sin(t)})
-  let ys = t.map(fn (t) {13.0 * @math.cos(t) - 5.0 * @math.cos(2.0 * t) - 2.0 * @math.cos(3.0 * t) - @math.cos(4.0 * t)})
+  let t : Array[Double] = Array::makei(n, fn (i) {2.0 * PI * i.to_double() / n.to_double()})
+  let xs = t.map(fn (t) {16.0 * sin(t) * sin(t) * sin(t)})
+  let ys = t.map(fn (t) {13.0 * cos(t) - 5.0 * cos(2.0 * t) - 2.0 * cos(3.0 * t) - cos(4.0 * t)})
 
-  @plt.plot(xs, ys, color=@plt.Red, linewidth=5)
-  @plt.title("Moonbit x Matplotlib")
+  let (_, ax) = @plt.subplots()
+
+  ax.plot(xs, ys, color=@plt.Red, linewidth=5)
+  ax.set_title("Moonbit x Matplotlib")
   @plt.show()
 }
 ```
@@ -180,8 +186,11 @@ t = np.linspace(0, 2 * np.pi, n)
 x = 16 * np.sin(t)**3
 y = 13 * np.cos(t) - 5 * np.cos(2*t) - 2 * np.cos(3*t) - np.cos(4*t)
 
-plt.plot(x, y)
-plt.title("Moonbit x Matplotlib")
+fig, ax = plt.subplots()
+
+ax.plot(x, y, color='red', linewidth = 5)
+ax.set_title("Moonbit x Matplotlib")
+
 plt.show()
 ```
 
@@ -348,14 +357,20 @@ $env:CC_LINK_FLAGS = "-L$($PY_PATH.Trim())\libs -lpython$env:PY_VERSION"
 让我们用 `matplotlib.mbt` 画一个浪漫的心形曲线吧！
 
 ```moonbit
-fn main {
-  let n = 5000 // 数据点数量
-  let t : Array[Double] = Array::makei(n, fn (i) {2.0 * @math.PI * i.to_double() / n.to_double()})
-  let xs = t.map(fn (t) {16.0 * @math.sin(t) * @math.sin(t) * @math.sin(t)})
-  let ys = t.map(fn (t) {13.0 * @math.cos(t) - 5.0 * @math.cos(2.0 * t) - 2.0 * @math.cos(3.0 * t) - @math.cos(4.0 * t)})
+let sin : (Double) -> Double = @math.sin
+let cos : (Double) -> Double = @math.cos
+const PI: Double = @math.PI
 
-  @plt.plot(xs, ys, color=@plt.Red, linewidth=5)
-  @plt.title("Moonbit x Matplotlib")
+fn main {
+  let n = 5000 // Number of data points
+  let t : Array[Double] = Array::makei(n, fn (i) {2.0 * PI * i.to_double() / n.to_double()})
+  let xs = t.map(fn (t) {16.0 * sin(t) * sin(t) * sin(t)})
+  let ys = t.map(fn (t) {13.0 * cos(t) - 5.0 * cos(2.0 * t) - 2.0 * cos(3.0 * t) - cos(4.0 * t)})
+
+  let (_, ax) = @plt.subplots()
+
+  ax.plot(xs, ys, color=@plt.Red, linewidth=5)
+  ax.set_title("Moonbit x Matplotlib")
   @plt.show()
 }
 ```
@@ -381,8 +396,11 @@ t = np.linspace(0, 2 * np.pi, n)
 x = 16 * np.sin(t)**3
 y = 13 * np.cos(t) - 5 * np.cos(2*t) - 2 * np.cos(3*t) - np.cos(4*t)
 
-plt.plot(x, y)
-plt.title("Moonbit x Matplotlib")
+fig, ax = plt.subplots()
+
+ax.plot(x, y, color='red', linewidth = 5)
+ax.set_title("Moonbit x Matplotlib")
+
 plt.show()
 ```
 
