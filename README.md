@@ -74,11 +74,11 @@ Follow these steps to configure your `matplotlib.mbt` project.
 
 ### 📦 Adding Dependencies
 
-First, update your package index and install the core `python` library:
+First, update your package index and install the `matplotlib` library:
 
 ```bash
 moon update
-moon add Kaida-Amethyst/python
+moon add Kaida-Amethyst/matplotlib
 ```
 
 ⚠️ **Please Note**: The current Moonbit package manager might have known issues with pure Native library support, and you might encounter related error messages. Please disregard these for now. The official Moonbit team is actively working on a fix. You can follow the progress on [Moonbitlang](https://www.moonbitlang.cn/).
@@ -173,7 +173,7 @@ moon run main.mbt --target native
 
 It will generate a beautiful heart-shaped plot, like this:
 
-![example.png](./example.png)
+![example.png](https://libraryimgs-1309485105.cos.ap-guangzhou.myqcloud.com/matplotlib.mbt.example.png)
 
 The equivalent Python code is as follows for your comparison:
 
@@ -284,11 +284,11 @@ python3-config --prefix
 
 ### 📦 添加依赖
 
-首先，更新你的包索引并安装核心的 `python` 库：
+首先，更新你的包索引并安装 `matplotlib` 库：
 
 ```bash
 moon update
-moon add Kaida-Amethyst/python
+moon add Kaida-Amethyst/matplotlib
 ```
 
 ⚠️ **请注意**：当前 Moonbit 包管理器对纯 Native 库的支持可能存在一些已知问题，你可能会看到相关的错误提示。请暂时忽略这些提示，Moonbit 官方团队正在积极修复中，你可以关注 [Moonbitlang](https://www.moonbitlang.cn/) 获取最新的进展。
@@ -383,7 +383,7 @@ moon run main.mbt --target native
 
 你将会看到一个美丽的心形曲线图，就像这样：
 
-![example.png](./example.png)
+![example.png](https://libraryimgs-1309485105.cos.ap-guangzhou.myqcloud.com/matplotlib.mbt.example.png)
 
 等效的 Python 代码如下：
 
