@@ -22,7 +22,11 @@ typealias PyList = @python.PyList
 ///|
 typealias Pycallable = @python.PyCallable
 
+///|
 typealias PyObject = @python.PyObject
+
+///|
+typealias PyObjectEnum = @python.PyObjectEnum
 
 ///|
 pub type! MatplotlibError {

@@ -1,6 +1,6 @@
 ///|
 pub struct Axes {
-  priv obj : @python.PyObject
+  priv obj : PyObject
 }
 
 ///| Plot y versus x as lines and/or markers. Same as `matplotlib.pyplot.plot` in Python.
@@ -29,7 +29,7 @@ pub fn Axes::plot(
   alpha~ : Double = 1.0,
   linestyle~ : LineStyle = Solid
 ) -> Unit {
-  guard self.obj.get_attr("plot") is Some(@python.PyCallable(f))
+  guard self.obj.get_attr("plot") is Some(PyObjectEnum::PyCallable(f))
   let args = @python.PyTuple::new(2)
   args[0] = xs.map(PyFloat::from) |> PyList::from
   args[1] = ys.map(PyFloat::from) |> PyList::from
@@ -41,35 +41,35 @@ pub fn Axes::plot(
   if label is Some(l) {
     kwargs.set("label", PyString::from(l))
   }
-  let _ = f.invoke(args, kwargs~)
+  let _ = f.invoke(args~, kwargs~)
 
 }
 
 ///|
 pub fn set_xlim(self : Axes, left : Double, right : Double) -> Unit {
-  guard self.obj.get_attr("set_xlim") is Some(@python.PyCallable(f))
+  guard self.obj.get_attr("set_xlim") is Some(PyObjectEnum::PyCallable(f))
   let args = @python.PyTuple::new(2)
   args[0] = PyFloat::from(left)
   args[1] = PyFloat::from(right)
-  let _ = f.invoke(args)
+  let _ = f.invoke(args~)
 
 }
 
 ///|
 pub fn set_ylim(self : Axes, bottom : Double, top : Double) -> Unit {
-  guard self.obj.get_attr("set_ylim") is Some(@python.PyCallable(f))
+  guard self.obj.get_attr("set_ylim") is Some(PyObjectEnum::PyCallable(f))
   let args = @python.PyTuple::new(2)
   args[0] = PyFloat::from(bottom)
   args[1] = PyFloat::from(top)
-  let _ = f.invoke(args)
+  let _ = f.invoke(args~)
 
 }
 
 ///|
 pub fn set_title(self : Axes, title : String) -> Unit {
-  guard self.obj.get_attr("set_title") is Some(@python.PyCallable(f))
+  guard self.obj.get_attr("set_title") is Some(PyObjectEnum::PyCallable(f))
   let args = @python.PyTuple::new(1)
   args[0] = PyString::from(title)
-  let _ = f.invoke(args)
+  let _ = f.invoke(args~)
 
 }

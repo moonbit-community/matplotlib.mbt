@@ -5,8 +5,6 @@ import(
 )
 
 // Values
-fn new() -> Matplotlib!
-
 fn save(String, dpi~ : Int = ..) -> Unit
 
 fn set_title(Axes, String) -> Unit
@@ -17,7 +15,7 @@ fn set_ylim(Axes, Double, Double) -> Unit
 
 fn show() -> Unit
 
-fn subplots() -> (Figure, Axes)
+fn subplots(Int, Int, figsize~ : (Double, Double) = ..) -> (Figure, Array[Array[Axes]])
 
 // Types and methods
 pub struct Axes {
@@ -42,7 +40,9 @@ pub(all) enum Color {
 }
 impl Show for Color
 
-type Figure
+pub struct Figure {
+  // private fields
+}
 
 pub(all) enum LineStyle {
   Solid

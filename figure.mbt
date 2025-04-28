@@ -1,4 +1,4 @@
 ///|
-struct Figure {
-  priv obj : @python.PyObject
+pub struct Figure {
+  priv obj : PyObject
 }
