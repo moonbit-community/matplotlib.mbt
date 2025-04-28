@@ -1,3 +1,4 @@
+
 ///|
 pub struct Matplotlib {
   // matplotlib: PyModule 
@@ -63,16 +64,74 @@ fn get_lib() -> () -> Matplotlib {
 }
 
 ///|
-pub fn subplots() -> (Figure, Axes) {
+pub fn subplots(nrows: Int, ncols :Int, figsize~:(Double, Double) = (8, 6)) -> (Figure, Array[Array[Axes]]) {
+  guard nrows >= 1 && ncols >= 1
+
   let lib = singleton()
   guard lib.pyplot.get_attr("subplots") is Some(PyCallable(f))
-  let args = PyTuple::new(0)
-  guard f.invoke(args) is Some(PyTuple(fig_ax))
+  let args = PyTuple::new(2)
+  args.set?(0, PyInteger::from(nrows.to_int64())).unwrap()
+  args.set?(1, PyInteger::from(ncols.to_int64())).unwrap()
+
+  let kwargs = PyDict::new()
+  let py_figsize_arg = PyTuple::new(2)
+  let (w, h) = figsize
+  py_figsize_arg.set?(0, PyFloat::from(w)).unwrap()
+  py_figsize_arg.set?(1, PyFloat::from(h)).unwrap()
+  kwargs.set("figsize", py_figsize_arg)
+
+  guard f.invoke(args, kwargs = kwargs) is Some(PyTuple(fig_ax))
   guard fig_ax[0] is PyClass(fig)
-  guard fig_ax[1] is PyClass(ax)
   let fig = Figure::{ obj: fig }
-  let ax = Axes::{ obj: ax }
-  (fig, ax)
+
+  guard fig_ax[1] is PyClass(py_axes) // It possibly matpolotlib.axes._axes.Axes or numpy.ndarray
+  let axes :Array[Array[Axes]] = Array::new()
+  
+  match (nrows, ncols) {
+    (1, 1) => {
+      axes.push(Array::new())
+      axes[0].push(Axes::{ obj: py_axes })
+    }
+    (n, 1) => {
+      for i in 0..<n {
+        axes.push(Array::new())
+        guard py_axes.get_attr("__getitem__") is Some(PyCallable(ax_getitem))
+        let arg = PyTuple::new(1)
+        arg.set?(0, PyInteger::from(i.to_int64())).unwrap()
+        guard ax_getitem.invoke(arg) is Some(PyClass(ax))
+        axes[i].push(Axes::{ obj: ax })
+      }
+    }
+    (1, n) => {
+      let col = Array::new()
+      for i in 0..<n {
+        guard py_axes.get_attr("__getitem__") is Some(PyCallable(ax_getitem))
+        let arg = PyTuple::new(1)
+        arg.set?(0, PyInteger::from(i.to_int64())).unwrap()
+        guard ax_getitem.invoke(arg) is Some(PyClass(ax))
+        col.push(Axes::{ obj: ax })
+      }
+      axes.push(col)
+    }
+    (r, c) => {
+      for i in 0..<r {
+        axes.push(Array::new())
+        guard py_axes.get_attr("__getitem__") is Some(PyCallable(ax_r_getitem))
+        let arg = PyTuple::new(1)
+        arg.set?(0, PyInteger::from(i.to_int64())).unwrap()
+        guard ax_r_getitem.invoke(arg) is Some(PyClass(ax_r))
+        for j in 0..<c {
+          guard ax_r.get_attr("__getitem__") is Some(PyCallable(ax_c_getitem))
+          let arg = PyTuple::new(1)
+          arg.set?(0, PyInteger::from(j.to_int64())).unwrap()
+          guard ax_c_getitem.invoke(arg) is Some(PyClass(ax))
+          axes[i].push(Axes::{ obj: ax })
+        }
+      }
+    }
+  }
+
+  (fig, axes)
 }
 
 ///|

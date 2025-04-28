@@ -8,6 +8,6 @@
   "repository": "",
   "license": "Apache-2.0",
   "keywords": [],
-  "description": "",
+  "description": "Draw scientific plots with matplotlib in moonbit",
   "source": "."
 }

@@ -22,6 +22,8 @@ typealias PyList = @python.PyList
 ///|
 typealias Pycallable = @python.PyCallable
 
+typealias PyObject = @python.PyObject
+
 ///|
 pub type! MatplotlibError {
   //LoadMatplotlibError
