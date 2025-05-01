@@ -1,0 +1,8 @@
+{
+  "import": [
+    { 
+      "path":"Kaida-Amethyst/matplotlib",
+      "alias" : "plt"
+    }
+  ]
+}

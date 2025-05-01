@@ -11,6 +11,9 @@ typealias PyInteger = @python.PyInteger
 typealias PyFloat = @python.PyFloat
 
 ///|
+typealias PyBool = @python.PyBool
+
+///|
 typealias PyTuple = @python.PyTuple
 
 ///|

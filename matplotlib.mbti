@@ -7,12 +7,6 @@ import(
 // Values
 fn save(String, dpi~ : Int = ..) -> Unit
 
-fn set_title(Axes, String) -> Unit
-
-fn set_xlim(Axes, Double, Double) -> Unit
-
-fn set_ylim(Axes, Double, Double) -> Unit
-
 fn show() -> Unit
 
 fn subplots(Int, Int, figsize~ : (Double, Double) = ..) -> (Figure, Array[Array[Axes]])
@@ -22,10 +16,19 @@ pub struct Axes {
   // private fields
 }
 impl Axes {
+  bar(Self, Array[Double], Array[Double], width~ : Double = .., bottom~ : Double = .., color~ : Color = ..) -> Unit
+  barh(Self, Array[Double], Array[Double], hight~ : Double = .., left~ : Double = .., color~ : Color = ..) -> Unit
+  hlines(Self, Array[Double], Array[Double], Array[Double], colors~ : Array[Color] = .., linestyles~ : Array[LineStyle] = ..) -> Unit
+  pie(Self, Array[Double], labels~ : Array[String] = .., colors~ : Array[Color] = ..) -> Unit
   plot(Self, Array[Double], Array[Double], color~ : Color = .., label~ : String? = .., linewidth~ : Double = .., alpha~ : Double = .., linestyle~ : LineStyle = ..) -> Unit
+  scatter(Self, Array[Double], Array[Double], color~ : Color = .., marker~ : Marker = .., alpha~ : Double = ..) -> Unit
   set_title(Self, String) -> Unit
+  set_xlabel(Self, String) -> Unit
   set_xlim(Self, Double, Double) -> Unit
+  set_ylabel(Self, String) -> Unit
   set_ylim(Self, Double, Double) -> Unit
+  stem(Self, Array[Double], Array[Double], bottom~ : Double = ..) -> Unit
+  vlines(Self, Array[Double], Array[Double], Array[Double], colors~ : Array[Color] = .., linestyles~ : Array[LineStyle] = ..) -> Unit
 }
 
 pub(all) enum Color {
@@ -36,7 +39,11 @@ pub(all) enum Color {
   Black
   Cyan
   White
+  Magenta
   Rgb(Int, Int, Int)
+}
+impl Color {
+  to_pystr(Self) -> @python.PyString
 }
 impl Show for Color
 
@@ -50,7 +57,42 @@ pub(all) enum LineStyle {
   Dotted
   DashDot
 }
+impl LineStyle {
+  to_pystr(Self) -> @python.PyString
+}
 impl Show for LineStyle
+
+pub(all) enum Marker {
+  Point
+  Pixel
+  Circle
+  Octagon
+  Square
+  Pentagon
+  Plus
+  PlusFilled
+  Star
+  Hexagon1
+  Hexagon2
+  X
+  XFilled
+  Diamond
+  ThinDiamond
+  Vline
+  Hline
+  TriangleUp
+  TriangleDown
+  TriangleLeft
+  TriangleRight
+  TriDown
+  TriUp
+  TriLeft
+  TriRight
+}
+impl Marker {
+  to_pystr(Self) -> @python.PyString
+}
+impl Show for Marker
 
 pub struct Matplotlib {
   pyplot : @python.PyModule
