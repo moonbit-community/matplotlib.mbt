@@ -18,28 +18,182 @@ pub struct Axes {
 impl Axes {
   bar(Self, Array[Double], Array[Double], width~ : Double = .., bottom~ : Double = .., color~ : Color = ..) -> Unit
   barh(Self, Array[Double], Array[Double], hight~ : Double = .., left~ : Double = .., color~ : Color = ..) -> Unit
-  hlines(Self, Array[Double], Array[Double], Array[Double], colors~ : Array[Color] = .., linestyles~ : Array[LineStyle] = ..) -> Unit
+  get_title(Self) -> String
+  get_xbound(Self) -> (Double, Double)
+  get_xlabel(Self) -> String
+  get_xlim(Self) -> (Double, Double)
+  get_ybound(Self) -> (Double, Double)
+  get_ylabel(Self) -> String
+  get_ylim(Self) -> (Double, Double)
+  grid(Self, Bool, color~ : Color = .., linestyle~ : LineStyle = .., linewidth~ : Double = .., alpha~ : Double = ..) -> Unit
+  hline(Self, Double, Double, Double, color~ : Color = .., linestyle~ : LineStyle = ..) -> Unit
+  loglog(Self, base~ : Double = ..) -> Unit
   pie(Self, Array[Double], labels~ : Array[String] = .., colors~ : Array[Color] = ..) -> Unit
   plot(Self, Array[Double], Array[Double], color~ : Color = .., label~ : String? = .., linewidth~ : Double = .., alpha~ : Double = .., linestyle~ : LineStyle = ..) -> Unit
   scatter(Self, Array[Double], Array[Double], color~ : Color = .., marker~ : Marker = .., alpha~ : Double = ..) -> Unit
+  semilogx(Self, base~ : Double = ..) -> Unit
+  semilogy(Self, base~ : Double = ..) -> Unit
   set_title(Self, String) -> Unit
+  set_xbound(Self, Double, Double) -> Unit
   set_xlabel(Self, String) -> Unit
   set_xlim(Self, Double, Double) -> Unit
+  set_ybound(Self, Double, Double) -> Unit
   set_ylabel(Self, String) -> Unit
   set_ylim(Self, Double, Double) -> Unit
   stem(Self, Array[Double], Array[Double], bottom~ : Double = ..) -> Unit
-  vlines(Self, Array[Double], Array[Double], Array[Double], colors~ : Array[Color] = .., linestyles~ : Array[LineStyle] = ..) -> Unit
+  text(Self, Double, Double, String, alpha~ : Double = .., color~ : Color = .., background~ : Color = .., fontsize~ : Double = .., rotation~ : Double = ..) -> Unit
+  vline(Self, Double, Double, Double, color~ : Color = .., linestyle~ : LineStyle = ..) -> Unit
 }
 
 pub(all) enum Color {
-  Red
-  Green
-  Blue
-  Yellow
+  Aliceblue
+  Antiquewhite
+  Aqua
+  Aquamarine
+  Azure
+  Beige
+  Bisque
   Black
+  Blanchedalmond
+  Blue
+  Blueviolet
+  Brown
+  Burlywood
+  Cadetblue
+  Chartreuse
+  Chocolate
+  Coral
+  Cornflowerblue
+  Cornsilk
+  Crimson
   Cyan
-  White
+  Darkblue
+  Darkcyan
+  Darkgoldenrod
+  Darkgray
+  Darkgreen
+  Darkgrey
+  Darkkhaki
+  Darkmagenta
+  Darkolivegreen
+  Darkorange
+  Darkorchid
+  Darkred
+  Darksalmon
+  Darkseagreen
+  Darkslateblue
+  Darkslategray
+  Darkslategrey
+  Darkturquoise
+  Darkviolet
+  Deeppink
+  Deepskyblue
+  Dimgray
+  Dimgrey
+  Dodgerblue
+  Firebrick
+  Floralwhite
+  Forestgreen
+  Fuchsia
+  Gainsboro
+  Ghostwhite
+  Gold
+  Goldenrod
+  Gray
+  Green
+  Greenyellow
+  Grey
+  Honeydew
+  Hotpink
+  Indianred
+  Indigo
+  Ivory
+  Khaki
+  Lavender
+  Lavenderblush
+  Lawngreen
+  Lemonchiffon
+  Lightblue
+  Lightcoral
+  Lightcyan
+  Lightgoldenrodyellow
+  Lightgray
+  Lightgreen
+  Lightgrey
+  Lightpink
+  Lightsalmon
+  Lightseagreen
+  Lightskyblue
+  Lightslategray
+  Lightslategrey
+  Lightsteelblue
+  Lightyellow
+  Lime
+  Limegreen
+  Linen
   Magenta
+  Maroon
+  Mediumaquamarine
+  Mediumblue
+  Mediumorchid
+  Mediumpurple
+  Mediumseagreen
+  Mediumslateblue
+  Mediumspringgreen
+  Mediumturquoise
+  Mediumvioletred
+  Midnightblue
+  Mintcream
+  Mistyrose
+  Moccasin
+  Navajowhite
+  Navy
+  Oldlace
+  Olive
+  Olivedrab
+  Orange
+  Orangered
+  Orchid
+  Palegoldenrod
+  Palegreen
+  Paleturquoise
+  Palevioletred
+  Papayawhip
+  Peachpuff
+  Peru
+  Pink
+  Plum
+  Powderblue
+  Purple
+  Rebeccapurple
+  Red
+  Rosybrown
+  Royalblue
+  Saddlebrown
+  Salmon
+  Sandybrown
+  Seagreen
+  Seashell
+  Sienna
+  Silver
+  Skyblue
+  Slateblue
+  Slategray
+  Slategrey
+  Snow
+  Springgreen
+  Steelblue
+  Tan
+  Teal
+  Thistle
+  Tomato
+  Turquoise
+  Violet
+  Wheat
+  White
+  Whitesmoke
+  Yellow
+  Yellowgreen
   Rgb(Int, Int, Int)
 }
 impl Color {

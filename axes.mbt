@@ -277,13 +277,15 @@ pub fn Axes::pie(
 
 ///|
 pub fn Axes::text(
-  self: Axes, 
-  x: Double, y: Double, s: String, 
-  alpha~:Double = 1.0, 
-  color~:Color = Color::Black,
-  background~:Color = Color::White,
-  fontsize~:Double = 12.0,
-  rotation~:Double = 0.0
+  self : Axes,
+  x : Double,
+  y : Double,
+  s : String,
+  alpha~ : Double = 1.0,
+  color~ : Color = Color::Black,
+  background~ : Color = Color::White,
+  fontsize~ : Double = 12.0,
+  rotation~ : Double = 0.0
 ) -> Unit {
   guard self.obj.get_attr("text") is Some(PyObjectEnum::PyCallable(f))
   let args = PyTuple::new(3)
@@ -296,7 +298,6 @@ pub fn Axes::text(
     ..set("backgroundcolor", background.to_pystr())
     ..set("fontsize", PyFloat::from(fontsize))
     ..set("rotation", PyFloat::from(rotation))
-
   let _ = f.invoke(args~, kwargs~)
 
 }
@@ -537,6 +538,7 @@ pub fn Axes::set_title(self : Axes, title : String) -> Unit {
   guard self.obj.get_attr("set_title") is Some(PyObjectEnum::PyCallable(f))
   let args = PyTuple::new(1)..set(0, PyString::from(title))
   let _ = f.invoke(args~)
+
 }
 
 ///|

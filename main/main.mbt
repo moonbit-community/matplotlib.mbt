@@ -14,8 +14,7 @@ fn main {
   ax.set_title("Sine Function")
   ax.set_xlabel("x")
   ax.set_ylabel("sin(x)")
-
-  ax.text(5, 0, "sin", color=@plt.Color::Lightpink, fontsize = 16)
+  ax.text(5, 0, "sin", color=@plt.Color::Lightpink, fontsize=16)
 
   //ax.grid(true)
   @plt.show()

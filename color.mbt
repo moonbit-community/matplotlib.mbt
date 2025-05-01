@@ -1,4 +1,3 @@
-
 ///|
 pub(all) enum Color {
   Aliceblue
