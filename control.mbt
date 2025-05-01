@@ -18,40 +18,6 @@ pub fn LineStyle::to_pystr(self : LineStyle) -> PyString {
 }
 
 ///|
-pub(all) enum Color {
-  Red
-  Green
-  Blue
-  Yellow
-  Black
-  Cyan
-  White
-  Magenta
-  Rgb(Int, Int, Int)
-} derive(Show)
-
-///|
-pub fn Color::to_pystr(self : Color) -> PyString {
-  let s : String = match self {
-    Red => "r"
-    Green => "g"
-    Blue => "b"
-    Yellow => "y"
-    Black => "k"
-    Cyan => "c"
-    White => "w"
-    Magenta => "m"
-    Rgb(r, g, b) => {
-      let rs = (r & 0xff).to_string(radix=16)
-      let gs = (g & 0xff).to_string(radix=16)
-      let bs = (b & 0xff).to_string(radix=16)
-      "#\{rs}\{gs}\{bs}"
-    }
-  }
-  PyString::from(s)
-}
-
-///|
 pub(all) enum Marker {
   Point
   Pixel
