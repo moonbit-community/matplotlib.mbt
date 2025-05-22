@@ -133,14 +133,33 @@ pub fn show() -> Unit {
 }
 
 ///|
-pub fn save(filename : String, dpi~ : Int = 0) -> Unit {
-  let func = pylab_get_func?("save").unwrap()
+//pub fn save(filename : String, dpi~ : Int = 0) -> Unit {
+//  let func = pylab_get_func?("save").unwrap()
+//  let py_str = PyString::from(filename)
+//  let args = PyTuple::new(1)..set(0, py_str)
+//  let kwargs = PyDict::new()
+//  if dpi > 0 {
+//    kwargs.set("dpi", PyInteger::from(dpi.to_int64()))
+//  }
+//  let _ = func.invoke(args~, kwargs~)
+//
+//}
+
+pub fn savefig(filename: String, dpi~: Int = 0, quality~: Int = 0) -> Unit {
+  let func = pyplot_get_func?("savefig").unwrap()
   let py_str = PyString::from(filename)
   let args = PyTuple::new(1)..set(0, py_str)
   let kwargs = PyDict::new()
   if dpi > 0 {
     kwargs.set("dpi", PyInteger::from(dpi.to_int64()))
   }
+  if quality > 0 {
+    kwargs.set("quality", PyInteger::from(quality.to_int64()))
+  }
   let _ = func.invoke(args~, kwargs~)
+}
 
+pub fn close() -> Unit {
+  let func = pyplot_get_func?("close").unwrap()
+  let _ = func.invoke()
 }
