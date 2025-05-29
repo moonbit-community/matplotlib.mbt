@@ -1,8 +1,8 @@
 {
   "name": "Kaida-Amethyst/matplotlib",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "deps": {
-    "Kaida-Amethyst/python": "0.1.2"
+    "Kaida-Amethyst/python": "0.1.3"
   },
   "readme": "README.md",
   "repository": "https://github.com/moonbit-community/matplotlib.mbt",
