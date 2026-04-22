@@ -149,7 +149,7 @@ pub(all) enum Color {
   Yellow
   Yellowgreen
   Rgb(Int, Int, Int)
-} derive(Show)
+} derive(Debug)
 
 ///|
 pub fn Color::to_pystr(self : Color) -> PyString {
@@ -160,7 +160,7 @@ pub fn Color::to_pystr(self : Color) -> PyString {
       let bs = (b & 0xff).to_string(radix=16)
       "#\{rs}\{gs}\{bs}"
     }
-    _ => self.to_string().to_lower()
+    _ => self.to_repr().to_string().to_lower()
   }
   PyString::from(s)
 }

@@ -4,7 +4,7 @@ pub(all) enum LineStyle {
   Dashed
   Dotted
   DashDot
-} derive(Show)
+} derive(Debug)
 
 ///|
 pub fn LineStyle::to_pystr(self : LineStyle) -> PyString {
@@ -44,7 +44,7 @@ pub(all) enum Marker {
   TriUp
   TriLeft
   TriRight
-} derive(Show)
+} derive(Debug)
 
 ///|
 pub fn Marker::to_pystr(self : Marker) -> PyString {

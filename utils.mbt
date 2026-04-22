@@ -1,42 +1,42 @@
 ///|
-typealias PyModule = @python.PyModule
+type PyModule = @python.PyModule
 
 ///|
-typealias PyString = @python.PyString
+type PyString = @python.PyString
 
 ///|
-typealias PyInteger = @python.PyInteger
+type PyInteger = @python.PyInteger
 
 ///|
-typealias PyFloat = @python.PyFloat
+type PyFloat = @python.PyFloat
 
 ///|
-typealias PyBool = @python.PyBool
+type PyBool = @python.PyBool
 
 ///|
-typealias PyTuple = @python.PyTuple
+type PyTuple = @python.PyTuple
 
 ///|
-typealias PyDict = @python.PyDict
+type PyDict = @python.PyDict
 
 ///|
-typealias PyList = @python.PyList
+type PyList = @python.PyList
 
 ///|
-typealias Pycallable = @python.PyCallable
+type PyCallable = @python.PyCallable
 
 ///|
-typealias PyObject = @python.PyObject
+type PyObject = @python.PyObject
 
 ///|
-typealias PyObjectEnum = @python.PyObjectEnum
+type PyObjectEnum = @python.PyObjectEnum
 
 ///|
-pub type! MatplotlibError {
+pub suberror MatplotlibError {
   //LoadMatplotlibError
   LoadPyPlotError
   //LoadColorMapError
   LoadPylabError
   LoadFuncError(String)
   // CallFuncError(String)
-} derive(Show)
+}

@@ -7,7 +7,7 @@ pub struct Matplotlib {
 }
 
 ///|
-fn new() -> Matplotlib!Error {
+fn new() -> Matplotlib raise Error {
   //guard @python.pyimport("matplotlib") is Some(matplotlib) else {
   //  raise LoadMatplotlibError
   //}
@@ -29,7 +29,7 @@ fn new() -> Matplotlib!Error {
 }
 
 ///|
-fn pyplot_get_func(fname : String) -> Pycallable!MatplotlibError {
+fn pyplot_get_func(fname : String) -> PyCallable raise Error {
   let lib = singleton()
   guard lib.pyplot.get_attr(fname) is Some(PyCallable(f)) else {
     raise LoadFuncError("Didn't find function : \{fname} in matplotlib.pyplot")
@@ -38,7 +38,7 @@ fn pyplot_get_func(fname : String) -> Pycallable!MatplotlibError {
 }
 
 ///|
-//fn pylab_get_func(fname : String) -> Pycallable!MatplotlibError {
+//fn pylab_get_func(fname : String) -> PyCallable raise Error {
 //  let lib = singleton()
 //  guard lib.pylab.get_attr(fname) is Some(PyCallable(f)) else {
 //    raise LoadFuncError("Didn't find function : \{fname} in pylab")
@@ -52,9 +52,8 @@ let singleton : () -> Matplotlib = get_lib()
 ///|
 fn get_lib() -> () -> Matplotlib {
   @python.init_py()
-  let mlib = match new?() {
-    Ok(mlib) => mlib
-    Err(e) => {
+  let mlib = new() catch {
+    e => {
       println(e)
       panic()
     }
@@ -131,12 +130,12 @@ pub fn subplots(
 
 ///|
 pub fn show() -> Unit {
-  let func = pyplot_get_func?("show").unwrap()
+  let func = try! pyplot_get_func("show")
   let _ = func.invoke()
 
 }
 //pub fn save(filename : String, dpi~ : Int = 0) -> Unit {
-//  let func = pylab_get_func?("save").unwrap()
+//  let func = try! pylab_get_func("save")
 //  let py_str = PyString::from(filename)
 //  let args = PyTuple::new(1)..set(0, py_str)
 //  let kwargs = PyDict::new()
@@ -149,7 +148,7 @@ pub fn show() -> Unit {
 
 ///|
 pub fn savefig(filename : String, dpi~ : Int = 0, quality~ : Int = 0) -> Unit {
-  let func = pyplot_get_func?("savefig").unwrap()
+  let func = try! pyplot_get_func("savefig")
   let py_str = PyString::from(filename)
   let args = PyTuple::new(1)
   args..set(0, py_str)
@@ -166,7 +165,7 @@ pub fn savefig(filename : String, dpi~ : Int = 0, quality~ : Int = 0) -> Unit {
 
 ///|
 pub fn close() -> Unit {
-  let func = pyplot_get_func?("close").unwrap()
+  let func = try! pyplot_get_func("close")
   let _ = func.invoke()
 
 }
