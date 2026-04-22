@@ -9,5 +9,6 @@
   "license": "Apache-2.0",
   "keywords": [],
   "description": "Draw scientific plots with matplotlib in moonbit",
-  "source": "."
+  "source": ".",
+  "preferred-target": "native"
 }
