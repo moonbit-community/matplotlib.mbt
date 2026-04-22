@@ -65,7 +65,7 @@ fn get_lib() -> () -> Matplotlib {
 pub fn subplots(
   nrows : Int,
   ncols : Int,
-  figsize~ : (Double, Double) = (8, 6)
+  figsize? : (Double, Double) = (8, 6),
 ) -> (Figure, Array[Array[Axes]]) {
   guard nrows >= 1 && ncols >= 1
   let lib = singleton()
@@ -132,7 +132,6 @@ pub fn subplots(
 pub fn show() -> Unit {
   let func = try! pyplot_get_func("show")
   let _ = try! func.invoke()
-
 }
 //pub fn save(filename : String, dpi~ : Int = 0) -> Unit {
 //  let func = try! pylab_get_func("save")
@@ -147,7 +146,7 @@ pub fn show() -> Unit {
 //}
 
 ///|
-pub fn savefig(filename : String, dpi~ : Int = 0, quality~ : Int = 0) -> Unit {
+pub fn savefig(filename : String, dpi? : Int = 0, quality? : Int = 0) -> Unit {
   let func = try! pyplot_get_func("savefig")
   let py_str = PyString::from(filename)
   let args = PyTuple::new(1)
@@ -160,12 +159,10 @@ pub fn savefig(filename : String, dpi~ : Int = 0, quality~ : Int = 0) -> Unit {
     kwargs.set("quality", PyInteger::from(quality.to_int64()))
   }
   let _ = try! func.invoke(args~, kwargs~)
-
 }
 
 ///|
 pub fn close() -> Unit {
   let func = try! pyplot_get_func("close")
   let _ = try! func.invoke()
-
 }
