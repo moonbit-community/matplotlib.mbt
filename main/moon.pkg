@@ -5,11 +5,4 @@ import {
 
 options(
   "is-main": true,
-  link: {
-    "native": {
-      "cc": "$CC",
-      "cc-flags": "$CC_FLAGS",
-      "cc-link-flags": "$CC_LINK_FLAGS",
-    },
-  },
 )

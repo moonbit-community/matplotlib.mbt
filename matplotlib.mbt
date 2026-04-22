@@ -47,10 +47,7 @@ fn pyplot_get_func(fname : String) -> PyCallable raise Error {
 //}
 
 ///|
-let singleton : () -> Matplotlib = get_lib()
-
-///|
-fn get_lib() -> () -> Matplotlib {
+fn singleton() -> Matplotlib {
   @python.init_py()
   let mlib = new() catch {
     e => {
@@ -58,7 +55,7 @@ fn get_lib() -> () -> Matplotlib {
       panic()
     }
   }
-  fn() { mlib }
+  mlib
 }
 
 ///|
