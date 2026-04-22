@@ -79,7 +79,7 @@ pub fn subplots(
   let py_figsize_arg = PyTuple::new(2)
   py_figsize_arg..set(0, PyFloat::from(w))..set(1, PyFloat::from(h))
   kwargs.set("figsize", py_figsize_arg)
-  guard f.invoke(args~, kwargs~) is Some(PyTuple(fig_ax))
+  guard (try! f.invoke(args~, kwargs~)) is Some(PyTuple(fig_ax))
   guard fig_ax[0] is PyClass(fig)
   let fig = Figure::{ obj: fig }
   guard fig_ax[1] is PyClass(py_axes)  // It possibly matpolotlib.axes._axes.Axes or numpy.ndarray
@@ -95,7 +95,7 @@ pub fn subplots(
         guard py_axes.get_attr("__getitem__") is Some(PyCallable(ax_getitem))
         let args = PyTuple::new(1)
         args..set(0, PyInteger::from(i.to_int64()))
-        guard ax_getitem.invoke(args~) is Some(PyClass(ax))
+        guard (try! ax_getitem.invoke(args~)) is Some(PyClass(ax))
         axes[i].push(Axes::{ obj: ax })
       }
     (1, n) => {
@@ -104,7 +104,7 @@ pub fn subplots(
         guard py_axes.get_attr("__getitem__") is Some(PyCallable(ax_getitem))
         let args = PyTuple::new(1)
         args..set(0, PyInteger::from(i.to_int64()))
-        guard ax_getitem.invoke(args~) is Some(PyClass(ax))
+        guard (try! ax_getitem.invoke(args~)) is Some(PyClass(ax))
         col.push(Axes::{ obj: ax })
       }
       axes.push(col)
@@ -115,12 +115,12 @@ pub fn subplots(
         guard py_axes.get_attr("__getitem__") is Some(PyCallable(ax_r_getitem))
         let args = PyTuple::new(1)
         args..set(0, PyInteger::from(i.to_int64()))
-        guard ax_r_getitem.invoke(args~) is Some(PyClass(ax_r))
+        guard (try! ax_r_getitem.invoke(args~)) is Some(PyClass(ax_r))
         for j in 0..<c {
           guard ax_r.get_attr("__getitem__") is Some(PyCallable(ax_c_getitem))
           let args = PyTuple::new(1)
           args..set(0, PyInteger::from(j.to_int64()))
-          guard ax_c_getitem.invoke(args~) is Some(PyClass(ax))
+          guard (try! ax_c_getitem.invoke(args~)) is Some(PyClass(ax))
           axes[i].push(Axes::{ obj: ax })
         }
       }
@@ -131,7 +131,7 @@ pub fn subplots(
 ///|
 pub fn show() -> Unit {
   let func = try! pyplot_get_func("show")
-  let _ = func.invoke()
+  let _ = try! func.invoke()
 
 }
 //pub fn save(filename : String, dpi~ : Int = 0) -> Unit {
@@ -142,7 +142,7 @@ pub fn show() -> Unit {
 //  if dpi > 0 {
 //    kwargs.set("dpi", PyInteger::from(dpi.to_int64()))
 //  }
-//  let _ = func.invoke(args~, kwargs~)
+//  let _ = try! func.invoke(args~, kwargs~)
 //
 //}
 
@@ -159,13 +159,13 @@ pub fn savefig(filename : String, dpi~ : Int = 0, quality~ : Int = 0) -> Unit {
   if quality > 0 {
     kwargs.set("quality", PyInteger::from(quality.to_int64()))
   }
-  let _ = func.invoke(args~, kwargs~)
+  let _ = try! func.invoke(args~, kwargs~)
 
 }
 
 ///|
 pub fn close() -> Unit {
   let func = try! pyplot_get_func("close")
-  let _ = func.invoke()
+  let _ = try! func.invoke()
 
 }
