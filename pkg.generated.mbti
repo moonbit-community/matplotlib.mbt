@@ -1,0 +1,260 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Kaida-Amethyst/matplotlib"
+
+import {
+  "Kaida-Amethyst/python",
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn close() -> Unit
+
+pub fn savefig(String, dpi? : Int, quality? : Int) -> Unit
+
+pub fn show() -> Unit
+
+pub fn subplots(Int, Int, figsize? : (Double, Double)) -> (Figure, Array[Array[Axes]])
+
+// Errors
+pub suberror MatplotlibError {
+  LoadPyPlotError
+  LoadPylabError
+  LoadFuncError(String)
+}
+
+// Types and methods
+pub struct Axes {
+  // private fields
+}
+pub fn Axes::bar(Self, Array[Double], Array[Double], width? : Double, bottom? : Double, color? : Color) -> Unit
+pub fn Axes::barh(Self, Array[Double], Array[Double], hight? : Double, left? : Double, color? : Color) -> Unit
+pub fn Axes::get_title(Self) -> String
+pub fn Axes::get_xbound(Self) -> (Double, Double)
+pub fn Axes::get_xlabel(Self) -> String
+pub fn Axes::get_xlim(Self) -> (Double, Double)
+pub fn Axes::get_ybound(Self) -> (Double, Double)
+pub fn Axes::get_ylabel(Self) -> String
+pub fn Axes::get_ylim(Self) -> (Double, Double)
+pub fn Axes::grid(Self, Bool, color? : Color, linestyle? : LineStyle, linewidth? : Double, alpha? : Double) -> Unit
+pub fn Axes::hline(Self, Double, Double, Double, color? : Color, linestyle? : LineStyle) -> Unit
+pub fn Axes::loglog(Self, base? : Double) -> Unit
+pub fn Axes::pie(Self, Array[Double], labels? : Array[String], colors? : Array[Color]) -> Unit
+pub fn Axes::plot(Self, Array[Double], Array[Double], color? : Color, label? : String?, linewidth? : Double, alpha? : Double, linestyle? : LineStyle) -> Unit
+pub fn Axes::scatter(Self, Array[Double], Array[Double], color? : Color, marker? : Marker, alpha? : Double) -> Unit
+pub fn Axes::semilogx(Self, base? : Double) -> Unit
+pub fn Axes::semilogy(Self, base? : Double) -> Unit
+pub fn Axes::set_title(Self, String) -> Unit
+pub fn Axes::set_xbound(Self, Double, Double) -> Unit
+pub fn Axes::set_xlabel(Self, String) -> Unit
+pub fn Axes::set_xlim(Self, Double, Double) -> Unit
+pub fn Axes::set_ybound(Self, Double, Double) -> Unit
+pub fn Axes::set_ylabel(Self, String) -> Unit
+pub fn Axes::set_ylim(Self, Double, Double) -> Unit
+pub fn Axes::stem(Self, Array[Double], Array[Double], bottom? : Double) -> Unit
+pub fn Axes::text(Self, Double, Double, String, alpha? : Double, color? : Color, background? : Color, fontsize? : Double, rotation? : Double) -> Unit
+pub fn Axes::vline(Self, Double, Double, Double, color? : Color, linestyle? : LineStyle) -> Unit
+
+pub(all) enum Color {
+  Aliceblue
+  Antiquewhite
+  Aqua
+  Aquamarine
+  Azure
+  Beige
+  Bisque
+  Black
+  Blanchedalmond
+  Blue
+  Blueviolet
+  Brown
+  Burlywood
+  Cadetblue
+  Chartreuse
+  Chocolate
+  Coral
+  Cornflowerblue
+  Cornsilk
+  Crimson
+  Cyan
+  Darkblue
+  Darkcyan
+  Darkgoldenrod
+  Darkgray
+  Darkgreen
+  Darkgrey
+  Darkkhaki
+  Darkmagenta
+  Darkolivegreen
+  Darkorange
+  Darkorchid
+  Darkred
+  Darksalmon
+  Darkseagreen
+  Darkslateblue
+  Darkslategray
+  Darkslategrey
+  Darkturquoise
+  Darkviolet
+  Deeppink
+  Deepskyblue
+  Dimgray
+  Dimgrey
+  Dodgerblue
+  Firebrick
+  Floralwhite
+  Forestgreen
+  Fuchsia
+  Gainsboro
+  Ghostwhite
+  Gold
+  Goldenrod
+  Gray
+  Green
+  Greenyellow
+  Grey
+  Honeydew
+  Hotpink
+  Indianred
+  Indigo
+  Ivory
+  Khaki
+  Lavender
+  Lavenderblush
+  Lawngreen
+  Lemonchiffon
+  Lightblue
+  Lightcoral
+  Lightcyan
+  Lightgoldenrodyellow
+  Lightgray
+  Lightgreen
+  Lightgrey
+  Lightpink
+  Lightsalmon
+  Lightseagreen
+  Lightskyblue
+  Lightslategray
+  Lightslategrey
+  Lightsteelblue
+  Lightyellow
+  Lime
+  Limegreen
+  Linen
+  Magenta
+  Maroon
+  Mediumaquamarine
+  Mediumblue
+  Mediumorchid
+  Mediumpurple
+  Mediumseagreen
+  Mediumslateblue
+  Mediumspringgreen
+  Mediumturquoise
+  Mediumvioletred
+  Midnightblue
+  Mintcream
+  Mistyrose
+  Moccasin
+  Navajowhite
+  Navy
+  Oldlace
+  Olive
+  Olivedrab
+  Orange
+  Orangered
+  Orchid
+  Palegoldenrod
+  Palegreen
+  Paleturquoise
+  Palevioletred
+  Papayawhip
+  Peachpuff
+  Peru
+  Pink
+  Plum
+  Powderblue
+  Purple
+  Rebeccapurple
+  Red
+  Rosybrown
+  Royalblue
+  Saddlebrown
+  Salmon
+  Sandybrown
+  Seagreen
+  Seashell
+  Sienna
+  Silver
+  Skyblue
+  Slateblue
+  Slategray
+  Slategrey
+  Snow
+  Springgreen
+  Steelblue
+  Tan
+  Teal
+  Thistle
+  Tomato
+  Turquoise
+  Violet
+  Wheat
+  White
+  Whitesmoke
+  Yellow
+  Yellowgreen
+  Rgb(Int, Int, Int)
+} derive(@debug.Debug)
+pub fn Color::to_pystr(Self) -> @python.PyString
+
+pub struct Figure {
+  // private fields
+}
+pub fn Figure::elim(Self) -> Unit
+
+pub(all) enum LineStyle {
+  Solid
+  Dashed
+  Dotted
+  DashDot
+} derive(@debug.Debug)
+pub fn LineStyle::to_pystr(Self) -> @python.PyString
+
+pub(all) enum Marker {
+  Point
+  Pixel
+  Circle
+  Octagon
+  Square
+  Pentagon
+  Plus
+  PlusFilled
+  Star
+  Hexagon1
+  Hexagon2
+  X
+  XFilled
+  Diamond
+  ThinDiamond
+  Vline
+  Hline
+  TriangleUp
+  TriangleDown
+  TriangleLeft
+  TriangleRight
+  TriDown
+  TriUp
+  TriLeft
+  TriRight
+} derive(@debug.Debug)
+pub fn Marker::to_pystr(Self) -> @python.PyString
+
+pub struct Matplotlib {
+  pyplot : @python.PyModule
+  pylab : @python.PyModule
+}
+
+// Type aliases
+
+// Traits
+

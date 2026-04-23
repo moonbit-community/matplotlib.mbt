@@ -1,0 +1,8 @@
+import {
+  "moonbitlang/core/math",
+  "Kaida-Amethyst/matplotlib" @plt,
+}
+
+options(
+  "is-main": true,
+)

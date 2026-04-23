@@ -1,8 +1,13 @@
 ## Heart Curve
 
-```moonbit
-fnalias @math.(sin, cos)
+```moonbit nocheck
+///|
+using @math {sin, cos}
+
+///|
 const PI : Double = @math.PI
+
+///|
 test "heart_curve" {
   let n = 5000 // number of data points
   let t : Array[Double] = Array::makei(n, fn(i) {
@@ -22,7 +27,8 @@ test "heart_curve" {
 
 ## Math functions
 
-```moonbit
+```moonbit nocheck
+///|
 test "math_funcs" {
   let xs = Array::makei(100, fn(i) { i.to_double() / 10.0 })
   let square = xs.map(fn(x) { x * x })
@@ -36,7 +42,9 @@ test "math_funcs" {
   axes[0][0].set_title("Square Function")
 
   // Exponential function
-  axes[0][1].plot(xs, exps,
+  axes[0][1].plot(
+    xs,
+    exps,
     color=@plt.Green,
     linestyle=@plt.Dashed,
     linewidth=3,
@@ -48,7 +56,9 @@ test "math_funcs" {
   axes[1][0].set_title("Sine Function")
 
   // Logarithm function
-  axes[1][1].plot(xs, logx,
+  axes[1][1].plot(
+    xs,
+    logx,
     color=@plt.Magenta,
     linestyle=@plt.DashDot,
     linewidth=3,

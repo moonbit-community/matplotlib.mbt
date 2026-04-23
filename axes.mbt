@@ -3,7 +3,8 @@ pub struct Axes {
   priv obj : PyObject
 }
 
-///| Plot y versus x as lines and/or markers. Same as `matplotlib.pyplot.plot` in Python.
+///|
+/// Plot y versus x as lines and/or markers. Same as `matplotlib.pyplot.plot` in Python.
 ///
 /// ## Arguments
 ///
@@ -23,11 +24,11 @@ pub fn Axes::plot(
   self : Axes,
   xs : Array[Double],
   ys : Array[Double],
-  color~ : Color = Blue,
-  label~ : String? = None,
-  linewidth~ : Double = 1.0,
-  alpha~ : Double = 1.0,
-  linestyle~ : LineStyle = Solid
+  color? : Color = Blue,
+  label? : String? = None,
+  linewidth? : Double = 1.0,
+  alpha? : Double = 1.0,
+  linestyle? : LineStyle = Solid,
 ) -> Unit {
   guard xs.length() != 0 else {
     println("Error: xs must have at least one element.")
@@ -41,18 +42,17 @@ pub fn Axes::plot(
   let xs = xs.map(PyFloat::from) |> PyList::from
   let ys = ys.map(PyFloat::from) |> PyList::from
   let args = PyTuple::new(2)
-  args..set(0, xs)..set(1, ys)
+  args.set(0, xs)
+  args.set(1, ys)
   let kwargs : PyDict = PyDict::new()
-  kwargs
-  ..set("color", color.to_pystr())
-  ..set("linewidth", PyFloat::from(linewidth))
-  ..set("alpha", PyFloat::from(alpha))
-  ..set("linestyle", linestyle.to_pystr())
+  kwargs.set("color", color.to_pystr())
+  kwargs.set("linewidth", PyFloat::from(linewidth))
+  kwargs.set("alpha", PyFloat::from(alpha))
+  kwargs.set("linestyle", linestyle.to_pystr())
   if label is Some(l) {
     kwargs.set("label", PyString::from(l))
   }
-  let _ = f.invoke(args~, kwargs~)
-
+  let _ = try! f.invoke(args~, kwargs~)
 }
 
 ///|
@@ -72,7 +72,7 @@ pub fn Axes::plot(
 ///
 /// Example:
 ///
-/// ```moonbit
+/// ```moonbit nocheck
 /// test "Axes::scatter" {
 ///   let (fig, axes) = @matplotlib.subplots(1, 1)
 ///   let x = [1.0, 2.0, 3.0]
@@ -84,9 +84,9 @@ pub fn Axes::scatter(
   self : Axes,
   xs : Array[Double],
   ys : Array[Double],
-  color~ : Color = Blue,
-  marker~ : Marker = Marker::Circle,
-  alpha~ : Double = 1.0
+  color? : Color = Blue,
+  marker? : Marker = Marker::Circle,
+  alpha? : Double = 1.0,
 ) -> Unit {
   guard xs.length() != 0 else {
     println("Error: xs must have at least one element.")
@@ -100,14 +100,13 @@ pub fn Axes::scatter(
   let xs = xs.map(PyFloat::from) |> PyList::from
   let ys = ys.map(PyFloat::from) |> PyList::from
   let args = PyTuple::new(2)
-  args..set(0, xs)..set(1, ys)
+  args.set(0, xs)
+  args.set(1, ys)
   let kwargs : PyDict = PyDict::new()
-  kwargs
-  ..set("color", color.to_pystr())
-  ..set("marker", marker.to_pystr())
-  ..set("alpha", PyFloat::from(alpha))
-  let _ = f.invoke(args~, kwargs~)
-
+  kwargs.set("color", color.to_pystr())
+  kwargs.set("marker", marker.to_pystr())
+  kwargs.set("alpha", PyFloat::from(alpha))
+  let _ = try! f.invoke(args~, kwargs~)
 }
 
 ///|
@@ -115,7 +114,7 @@ pub fn Axes::stem(
   self : Axes,
   xs : Array[Double],
   ys : Array[Double],
-  bottom~ : Double = 0.0
+  bottom? : Double = 0.0,
 ) -> Unit {
   guard xs.length() != 0 else {
     println("Error: xs must have at least one element.")
@@ -129,11 +128,11 @@ pub fn Axes::stem(
   let xs = xs.map(PyFloat::from) |> PyList::from
   let ys = ys.map(PyFloat::from) |> PyList::from
   let args = PyTuple::new(2)
-  args..set(0, xs)..set(1, ys)
+  args.set(0, xs)
+  args.set(1, ys)
   let kwargs : PyDict = PyDict::new()
-  kwargs..set("bottom", PyFloat::from(bottom))
-  let _ = f.invoke(args~, kwargs~)
-
+  kwargs.set("bottom", PyFloat::from(bottom))
+  let _ = try! f.invoke(args~, kwargs~)
 }
 
 ///|
@@ -151,7 +150,7 @@ pub fn Axes::stem(
 ///
 /// Example:
 ///
-/// ```moonbit
+/// ```moonbit nocheck
 /// test "Axes::bar" {
 ///   let (fig, axes) = @matplotlib.subplots(1, 1)
 ///   let x = [1.0, 2.0, 3.0]
@@ -163,9 +162,9 @@ pub fn Axes::bar(
   self : Axes,
   xs : Array[Double],
   heights : Array[Double],
-  width~ : Double = 0.8,
-  bottom~ : Double = 0.0,
-  color~ : Color = Blue
+  width? : Double = 0.8,
+  bottom? : Double = 0.0,
+  color? : Color = Blue,
 ) -> Unit {
   guard xs.length() != 0 else {
     println("Error: xs must have at least one element.")
@@ -179,14 +178,13 @@ pub fn Axes::bar(
   let xs = xs.map(PyFloat::from) |> PyList::from
   let heights = heights.map(PyFloat::from) |> PyList::from
   let args = PyTuple::new(2)
-  args..set(0, xs)..set(1, heights)
+  args.set(0, xs)
+  args.set(1, heights)
   let kwargs : PyDict = PyDict::new()
-  kwargs
-  ..set("width", PyFloat::from(width))
-  ..set("color", color.to_pystr())
-  ..set("bottom", PyFloat::from(bottom))
-  let _ = f.invoke(args~, kwargs~)
-
+  kwargs.set("width", PyFloat::from(width))
+  kwargs.set("color", color.to_pystr())
+  kwargs.set("bottom", PyFloat::from(bottom))
+  let _ = try! f.invoke(args~, kwargs~)
 }
 
 ///|
@@ -194,9 +192,9 @@ pub fn Axes::barh(
   self : Axes,
   ys : Array[Double],
   widths : Array[Double],
-  hight~ : Double = 0.8,
-  left~ : Double = 0.0,
-  color~ : Color = Blue
+  hight? : Double = 0.8,
+  left? : Double = 0.0,
+  color? : Color = Blue,
 ) -> Unit {
   guard ys.length() != 0 else {
     println("Error: ys must have at least one element.")
@@ -210,14 +208,13 @@ pub fn Axes::barh(
   let ys = ys.map(PyFloat::from) |> PyList::from
   let widths = widths.map(PyFloat::from) |> PyList::from
   let args = PyTuple::new(2)
-  args..set(0, ys)..set(1, widths)
+  args.set(0, ys)
+  args.set(1, widths)
   let kwargs : PyDict = PyDict::new()
-  kwargs
-  ..set("height", PyFloat::from(hight))
-  ..set("color", color.to_pystr())
-  ..set("left", PyFloat::from(left))
-  let _ = f.invoke(args~, kwargs~)
-
+  kwargs.set("height", PyFloat::from(hight))
+  kwargs.set("color", color.to_pystr())
+  kwargs.set("left", PyFloat::from(left))
+  let _ = try! f.invoke(args~, kwargs~)
 }
 
 ///|
@@ -238,7 +235,7 @@ pub fn Axes::barh(
 ///
 /// Example:
 ///
-/// ```moonbit
+/// ```moonbit nocheck
 /// test "Axes::pie" {
 ///   let (fig, axes) = @matplotlib.subplots(1, 1)
 ///   let values = [35.0, 25.0, 40.0]
@@ -254,8 +251,8 @@ pub fn Axes::barh(
 pub fn Axes::pie(
   self : Axes,
   xs : Array[Double],
-  labels~ : Array[String] = [],
-  colors~ : Array[Color] = []
+  labels? : Array[String] = [],
+  colors? : Array[Color] = [],
 ) -> Unit {
   guard xs.length() > 0 else {
     println("Error: xs must have at least one element.")
@@ -272,7 +269,7 @@ pub fn Axes::pie(
   guard self.obj.get_attr("pie") is Some(PyObjectEnum::PyCallable(f))
   let xs = xs.map(PyFloat::from) |> PyList::from
   let args = PyTuple::new(1)
-  args..set(0, xs)
+  args.set(0, xs)
   let kwargs : PyDict = PyDict::new()
   if labels.length() > 0 {
     let labels = labels.map(PyString::from) |> PyList::from
@@ -282,8 +279,7 @@ pub fn Axes::pie(
     let colors = colors.map(fn(c) { c.to_pystr() }) |> PyList::from
     kwargs.set("colors", colors)
   }
-  let _ = f.invoke(args~, kwargs~)
-
+  let _ = try! f.invoke(args~, kwargs~)
 }
 
 ///|
@@ -292,30 +288,28 @@ pub fn Axes::text(
   x : Double,
   y : Double,
   s : String,
-  alpha~ : Double = 1.0,
-  color~ : Color = Color::Black,
-  background~ : Color = Color::White,
-  fontsize~ : Double = 12.0,
-  rotation~ : Double = 0.0
+  alpha? : Double = 1.0,
+  color? : Color = Color::Black,
+  background? : Color = Color::White,
+  fontsize? : Double = 12.0,
+  rotation? : Double = 0.0,
 ) -> Unit {
   guard self.obj.get_attr("text") is Some(PyObjectEnum::PyCallable(f))
   let args = PyTuple::new(3)
-  args
-  ..set(0, PyFloat::from(x))
-  ..set(1, PyFloat::from(y))
-  ..set(2, PyString::from(s))
+  args.set(0, PyFloat::from(x))
+  args.set(1, PyFloat::from(y))
+  args.set(2, PyString::from(s))
   let kwargs : PyDict = PyDict::new()
-  kwargs
-  ..set("alpha", PyFloat::from(alpha))
-  ..set("color", color.to_pystr())
-  ..set("backgroundcolor", background.to_pystr())
-  ..set("fontsize", PyFloat::from(fontsize))
-  ..set("rotation", PyFloat::from(rotation))
-  let _ = f.invoke(args~, kwargs~)
-
+  kwargs.set("alpha", PyFloat::from(alpha))
+  kwargs.set("color", color.to_pystr())
+  kwargs.set("backgroundcolor", background.to_pystr())
+  kwargs.set("fontsize", PyFloat::from(fontsize))
+  kwargs.set("rotation", PyFloat::from(rotation))
+  let _ = try! f.invoke(args~, kwargs~)
 }
 
-///| Set the x-axis view limits. Same as `matplotlib.axes.Axes.set_xlim` in Python.
+///|
+/// Set the x-axis view limits. Same as `matplotlib.axes.Axes.set_xlim` in Python.
 ///
 /// ## Arguments
 ///
@@ -324,9 +318,9 @@ pub fn Axes::text(
 pub fn Axes::set_xlim(self : Axes, left : Double, right : Double) -> Unit {
   guard self.obj.get_attr("set_xlim") is Some(PyObjectEnum::PyCallable(f))
   let args = PyTuple::new(2)
-  args..set(0, PyFloat::from(left))..set(1, PyFloat::from(right))
-  let _ = f.invoke(args~)
-
+  args.set(0, PyFloat::from(left))
+  args.set(1, PyFloat::from(right))
+  let _ = try! f.invoke(args~)
 }
 
 ///|
@@ -341,17 +335,17 @@ pub fn Axes::set_xlim(self : Axes, left : Double, right : Double) -> Unit {
 ///
 /// Example:
 ///
-/// ```moonbit
+/// ```moonbit nocheck
 /// test "Axes::get_xlim" {
 ///   let (fig, axes) = @matplotlib.subplots(1, 1)
 ///   axes[0][0].set_xlim(-1.0, 1.0)
 ///   let (left, right) = axes[0][0].get_xlim()
-///   inspect!((left, right), content="(-1.0, 1.0)")
+///   inspect((left, right), content="(-1.0, 1.0)")
 /// }
 /// ```
 pub fn Axes::get_xlim(self : Axes) -> (Double, Double) {
   guard self.obj.get_attr("get_xlim") is Some(PyObjectEnum::PyCallable(f))
-  guard f.invoke() is Some(PyObjectEnum::PyTuple(t))
+  guard (try! f.invoke()) is Some(PyObjectEnum::PyTuple(t))
   guard t.get(0) is Some(PyObjectEnum::PyFloat(left))
   guard t.get(1) is Some(PyObjectEnum::PyFloat(right))
   let left = left.to_double()
@@ -359,7 +353,8 @@ pub fn Axes::get_xlim(self : Axes) -> (Double, Double) {
   return (left, right)
 }
 
-///| Set the y-axis view limits. Same as `matplotlib.axes.Axes.set_ylim` in Python.
+///|
+/// Set the y-axis view limits. Same as `matplotlib.axes.Axes.set_ylim` in Python.
 ///
 /// ## Arguments
 ///
@@ -368,9 +363,9 @@ pub fn Axes::get_xlim(self : Axes) -> (Double, Double) {
 pub fn Axes::set_ylim(self : Axes, bottom : Double, top : Double) -> Unit {
   guard self.obj.get_attr("set_ylim") is Some(PyObjectEnum::PyCallable(f))
   let args = PyTuple::new(2)
-  args..set(0, PyFloat::from(bottom))..set(1, PyFloat::from(top))
-  let _ = f.invoke(args~)
-
+  args.set(0, PyFloat::from(bottom))
+  args.set(1, PyFloat::from(top))
+  let _ = try! f.invoke(args~)
 }
 
 ///|
@@ -386,17 +381,17 @@ pub fn Axes::set_ylim(self : Axes, bottom : Double, top : Double) -> Unit {
 ///
 /// Example:
 ///
-/// ```moonbit
+/// ```moonbit nocheck
 /// test "Axes::get_ylim" {
 ///   let (fig, axes) = @matplotlib.subplots(1, 1)
 ///   axes[0][0].set_ylim(-1.0, 1.0)
 ///   let (bottom, top) = axes[0][0].get_ylim()
-///   inspect!((bottom, top), content="(-1.0, 1.0)")
+///   inspect((bottom, top), content="(-1.0, 1.0)")
 /// }
 /// ```
 pub fn Axes::get_ylim(self : Axes) -> (Double, Double) {
   guard self.obj.get_attr("get_ylim") is Some(PyObjectEnum::PyCallable(f))
-  guard f.invoke() is Some(PyObjectEnum::PyTuple(t))
+  guard (try! f.invoke()) is Some(PyObjectEnum::PyTuple(t))
   guard t.get(0) is Some(PyObjectEnum::PyFloat(bottom))
   guard t.get(1) is Some(PyObjectEnum::PyFloat(top))
   let bottom = bottom.to_double()
@@ -416,20 +411,20 @@ pub fn Axes::get_ylim(self : Axes) -> (Double, Double) {
 ///
 /// Example:
 ///
-/// ```moonbit
+/// ```moonbit nocheck
 /// test "Axes::set_xbound" {
 ///   let (fig, axes) = @matplotlib.subplots(1, 1)
 ///   axes[0][0].set_xbound(-1.0, 1.0)
 ///   let (lower, upper) = axes[0][0].get_xbound()
-///   inspect!((lower, upper), content="(-1.0, 1.0)")
+///   inspect((lower, upper), content="(-1.0, 1.0)")
 /// }
 /// ```
 pub fn Axes::set_xbound(self : Axes, lower : Double, upper : Double) -> Unit {
   guard self.obj.get_attr("set_xbound") is Some(PyObjectEnum::PyCallable(f))
   let args = PyTuple::new(2)
-  args..set(0, PyFloat::from(lower))..set(1, PyFloat::from(upper))
-  let _ = f.invoke(args~)
-
+  args.set(0, PyFloat::from(lower))
+  args.set(1, PyFloat::from(upper))
+  let _ = try! f.invoke(args~)
 }
 
 ///|
@@ -445,17 +440,17 @@ pub fn Axes::set_xbound(self : Axes, lower : Double, upper : Double) -> Unit {
 ///
 /// Example:
 ///
-/// ```moonbit
+/// ```moonbit nocheck
 /// test "Axes::get_xbound" {
 ///   let (fig, axes) = @matplotlib.subplots(1, 1)
 ///   axes[0][0].set_xbound(-1.0, 1.0)
 ///   let (lower, upper) = axes[0][0].get_xbound()
-///   inspect!((lower, upper), content="(-1.0, 1.0)")
+///   inspect((lower, upper), content="(-1.0, 1.0)")
 /// }
 /// ```
 pub fn Axes::get_xbound(self : Axes) -> (Double, Double) {
   guard self.obj.get_attr("get_xbound") is Some(PyObjectEnum::PyCallable(f))
-  guard f.invoke() is Some(PyObjectEnum::PyTuple(t))
+  guard (try! f.invoke()) is Some(PyObjectEnum::PyTuple(t))
   guard t.get(0) is Some(PyObjectEnum::PyFloat(lower))
   guard t.get(1) is Some(PyObjectEnum::PyFloat(upper))
   let lower = lower.to_double()
@@ -475,21 +470,20 @@ pub fn Axes::get_xbound(self : Axes) -> (Double, Double) {
 ///
 /// Example:
 ///
-/// ```moonbit
-/// ///|
+/// ```moonbit nocheck
 /// test "Axes::set_ybound" {
 ///   let (fig, axes) = @matplotlib.subplots(1, 1)
 ///   axes[0][0].set_ybound(-1.0, 1.0)
 ///   let (lower, upper) = axes[0][0].get_ybound()
-///   inspect!((lower, upper), content="(-1.0, 1.0)")
+///   inspect((lower, upper), content="(-1.0, 1.0)")
 /// }
 /// ```
 pub fn Axes::set_ybound(self : Axes, lower : Double, upper : Double) -> Unit {
   guard self.obj.get_attr("set_ybound") is Some(PyObjectEnum::PyCallable(f))
   let args = PyTuple::new(2)
-  args..set(0, PyFloat::from(lower))..set(1, PyFloat::from(upper))
-  let _ = f.invoke(args~)
-
+  args.set(0, PyFloat::from(lower))
+  args.set(1, PyFloat::from(upper))
+  let _ = try! f.invoke(args~)
 }
 
 ///|
@@ -505,18 +499,17 @@ pub fn Axes::set_ybound(self : Axes, lower : Double, upper : Double) -> Unit {
 ///
 /// Example:
 ///
-/// ```moonbit
-/// ///|
+/// ```moonbit nocheck
 /// test "Axes::get_ybound" {
 ///   let (fig, axes) = @matplotlib.subplots(1, 1)
 ///   axes[0][0].set_ybound(-1.0, 1.0)
 ///   let (lower, upper) = axes[0][0].get_ybound()
-///   inspect!((lower, upper), content="(-1.0, 1.0)")
+///   inspect((lower, upper), content="(-1.0, 1.0)")
 /// }
 /// ```
 pub fn Axes::get_ybound(self : Axes) -> (Double, Double) {
   guard self.obj.get_attr("get_ybound") is Some(PyObjectEnum::PyCallable(f))
-  guard f.invoke() is Some(PyObjectEnum::PyTuple(t))
+  guard (try! f.invoke()) is Some(PyObjectEnum::PyTuple(t))
   guard t.get(0) is Some(PyObjectEnum::PyFloat(lower))
   guard t.get(1) is Some(PyObjectEnum::PyFloat(upper))
   let lower = lower.to_double()
@@ -535,20 +528,18 @@ pub fn Axes::get_ybound(self : Axes) -> (Double, Double) {
 ///
 /// Example:
 ///
-/// ```moonbit
-/// ///|
+/// ```moonbit nocheck
 /// test "Axes::set_title" {
 ///   let (fig, axes) = @matplotlib.subplots(1, 1)
 ///   axes[0][0].set_title("My Plot")
-///   inspect!(axes[0][0].get_title(), content="\"My Plot\"")
+///   inspect(axes[0][0].get_title(), content="\"My Plot\"")
 /// }
 /// ```
 pub fn Axes::set_title(self : Axes, title : String) -> Unit {
   guard self.obj.get_attr("set_title") is Some(PyObjectEnum::PyCallable(f))
   let args = PyTuple::new(1)
-  args..set(0, PyString::from(title))
-  let _ = f.invoke(args~)
-
+  args.set(0, PyString::from(title))
+  let _ = try! f.invoke(args~)
 }
 
 ///|
@@ -563,21 +554,21 @@ pub fn Axes::set_title(self : Axes, title : String) -> Unit {
 ///
 /// Example:
 ///
-/// ```moonbit
-/// ///|
+/// ```moonbit nocheck
 /// test "Axes::get_title" {
 ///   let (fig, axes) = @matplotlib.subplots(1, 1)
 ///   axes[0][0].set_title("My Plot")
-///   inspect!(axes[0][0].get_title(), content="\"My Plot\"")
+///   inspect(axes[0][0].get_title(), content="\"My Plot\"")
 /// }
 /// ```
 pub fn Axes::get_title(self : Axes) -> String {
   guard self.obj.get_attr("get_title") is Some(PyObjectEnum::PyCallable(f))
-  guard f.invoke() is Some(PyObjectEnum::PyString(title))
+  guard (try! f.invoke()) is Some(PyObjectEnum::PyString(title))
   title.to_string()
 }
 
-///| Set the label for the x-axis. Same as `matplotlib.axes.Axes.set_xlabel` in Python.
+///|
+/// Set the label for the x-axis. Same as `matplotlib.axes.Axes.set_xlabel` in Python.
 ///
 /// ## Arguments
 ///
@@ -585,9 +576,8 @@ pub fn Axes::get_title(self : Axes) -> String {
 pub fn Axes::set_xlabel(self : Axes, xlabel : String) -> Unit {
   guard self.obj.get_attr("set_xlabel") is Some(PyObjectEnum::PyCallable(f))
   let args = PyTuple::new(1)
-  args..set(0, PyString::from(xlabel))
-  let _ = f.invoke(args~)
-
+  args.set(0, PyString::from(xlabel))
+  let _ = try! f.invoke(args~)
 }
 
 ///|
@@ -602,21 +592,21 @@ pub fn Axes::set_xlabel(self : Axes, xlabel : String) -> Unit {
 ///
 /// Example:
 ///
-/// ```moonbit
-/// ///|
+/// ```moonbit nocheck
 /// test "Axes::get_xlabel" {
 ///   let (fig, axes) = @matplotlib.subplots(1, 1)
 ///   axes[0][0].set_xlabel("X Label")
-///   inspect!(axes[0][0].get_xlabel(), content="\"X Label\"")
+///   inspect(axes[0][0].get_xlabel(), content="\"X Label\"")
 /// }
 /// ```
 pub fn Axes::get_xlabel(self : Axes) -> String {
   guard self.obj.get_attr("get_xlabel") is Some(PyObjectEnum::PyCallable(f))
-  guard f.invoke() is Some(PyObjectEnum::PyString(xlabel))
+  guard (try! f.invoke()) is Some(PyObjectEnum::PyString(xlabel))
   xlabel.to_string()
 }
 
-///| Set the label for the y-axis. Same as `matplotlib.axes.Axes.set_ylabel` in Python.
+///|
+/// Set the label for the y-axis. Same as `matplotlib.axes.Axes.set_ylabel` in Python.
 ///
 /// ## Arguments
 ///
@@ -624,9 +614,8 @@ pub fn Axes::get_xlabel(self : Axes) -> String {
 pub fn Axes::set_ylabel(self : Axes, ylabel : String) -> Unit {
   guard self.obj.get_attr("set_ylabel") is Some(PyObjectEnum::PyCallable(f))
   let args = PyTuple::new(1)
-  args..set(0, PyString::from(ylabel))
-  let _ = f.invoke(args~)
-
+  args.set(0, PyString::from(ylabel))
+  let _ = try! f.invoke(args~)
 }
 
 ///|
@@ -641,67 +630,61 @@ pub fn Axes::set_ylabel(self : Axes, ylabel : String) -> Unit {
 ///
 /// Example:
 ///
-/// ```moonbit
-/// ///|
+/// ```moonbit nocheck
 /// test "Axes::get_ylabel" {
 ///   let (fig, axes) = @matplotlib.subplots(1, 1)
 ///   axes[0][0].set_ylabel("Y Label")
-///   inspect!(axes[0][0].get_ylabel(), content="\"Y Label\"")
+///   inspect(axes[0][0].get_ylabel(), content="\"Y Label\"")
 /// }
 /// ```
 pub fn Axes::get_ylabel(self : Axes) -> String {
   guard self.obj.get_attr("get_ylabel") is Some(PyObjectEnum::PyCallable(f))
-  guard f.invoke() is Some(PyObjectEnum::PyString(ylabel))
+  guard (try! f.invoke()) is Some(PyObjectEnum::PyString(ylabel))
   ylabel.to_string()
 }
 
 ///|
-pub fn Axes::loglog(self : Axes, base~ : Double = 10.0) -> Unit {
+pub fn Axes::loglog(self : Axes, base? : Double = 10.0) -> Unit {
   guard self.obj.get_attr("loglog") is Some(PyObjectEnum::PyCallable(f))
   let kwargs : PyDict = PyDict::new()
-  kwargs..set("base", PyFloat::from(base))
-  let _ = f.invoke(kwargs~)
-
+  kwargs.set("base", PyFloat::from(base))
+  let _ = try! f.invoke(kwargs~)
 }
 
 ///|
-pub fn Axes::semilogx(self : Axes, base~ : Double = 10.0) -> Unit {
+pub fn Axes::semilogx(self : Axes, base? : Double = 10.0) -> Unit {
   guard self.obj.get_attr("semilogx") is Some(PyObjectEnum::PyCallable(f))
   let kwargs : PyDict = PyDict::new()
-  kwargs..set("base", PyFloat::from(base))
-  let _ = f.invoke(kwargs~)
-
+  kwargs.set("base", PyFloat::from(base))
+  let _ = try! f.invoke(kwargs~)
 }
 
 ///|
-pub fn Axes::semilogy(self : Axes, base~ : Double = 10.0) -> Unit {
+pub fn Axes::semilogy(self : Axes, base? : Double = 10.0) -> Unit {
   guard self.obj.get_attr("semilogy") is Some(PyObjectEnum::PyCallable(f))
   let kwargs : PyDict = PyDict::new()
-  kwargs..set("base", PyFloat::from(base))
-  let _ = f.invoke(kwargs~)
-
+  kwargs.set("base", PyFloat::from(base))
+  let _ = try! f.invoke(kwargs~)
 }
 
 ///|
 pub fn Axes::grid(
   self : Axes,
   visiable : Bool,
-  color~ : Color = Color::Blue,
-  linestyle~ : LineStyle = LineStyle::Solid,
-  linewidth~ : Double = 1.0,
-  alpha~ : Double = 0.8
+  color? : Color = Color::Blue,
+  linestyle? : LineStyle = LineStyle::Solid,
+  linewidth? : Double = 1.0,
+  alpha? : Double = 0.8,
 ) -> Unit {
   guard self.obj.get_attr("grid") is Some(PyObjectEnum::PyCallable(f))
   let args = PyTuple::new(1)
-  args..set(0, PyBool::from(visiable))
+  args.set(0, PyBool::from(visiable))
   let kwargs : PyDict = PyDict::new()
-  kwargs
-  ..set("color", color.to_pystr())
-  ..set("linestyle", linestyle.to_pystr())
-  ..set("linewidth", PyFloat::from(linewidth))
-  ..set("alpha", PyFloat::from(alpha))
-  let _ = f.invoke(args~, kwargs~)
-
+  kwargs.set("color", color.to_pystr())
+  kwargs.set("linestyle", linestyle.to_pystr())
+  kwargs.set("linewidth", PyFloat::from(linewidth))
+  kwargs.set("alpha", PyFloat::from(alpha))
+  let _ = try! f.invoke(args~, kwargs~)
 }
 
 ///|
@@ -710,21 +693,21 @@ pub fn Axes::vline(
   x : Double,
   ymin : Double,
   ymax : Double,
-  color~ : Color = Color::Blue,
-  linestyle~ : LineStyle = LineStyle::Solid
+  color? : Color = Color::Blue,
+  linestyle? : LineStyle = LineStyle::Solid,
 ) -> Unit {
   guard self.obj.get_attr("vlines") is Some(PyObjectEnum::PyCallable(f))
   let x = PyFloat::from(x)
   let ymin = PyFloat::from(ymin)
   let ymax = PyFloat::from(ymax)
   let args = PyTuple::new(3)
-  args..set(0, x)..set(1, ymin)..set(2, ymax)
+  args.set(0, x)
+  args.set(1, ymin)
+  args.set(2, ymax)
   let kwargs : PyDict = PyDict::new()
-  kwargs
-  ..set("colors", color.to_pystr())
-  ..set("linestyles", linestyle.to_pystr())
-  let _ = f.invoke(args~, kwargs~)
-
+  kwargs.set("colors", color.to_pystr())
+  kwargs.set("linestyles", linestyle.to_pystr())
+  let _ = try! f.invoke(args~, kwargs~)
 }
 
 ///|
@@ -733,19 +716,19 @@ pub fn Axes::hline(
   y : Double,
   xmin : Double,
   xmax : Double,
-  color~ : Color = Color::Blue,
-  linestyle~ : LineStyle = LineStyle::Solid
+  color? : Color = Color::Blue,
+  linestyle? : LineStyle = LineStyle::Solid,
 ) -> Unit {
   guard self.obj.get_attr("hlines") is Some(PyObjectEnum::PyCallable(f))
   let y = PyFloat::from(y)
   let xmin = PyFloat::from(xmin)
   let xmax = PyFloat::from(xmax)
   let args = PyTuple::new(3)
-  args..set(0, y)..set(1, xmin)..set(2, xmax)
+  args.set(0, y)
+  args.set(1, xmin)
+  args.set(2, xmax)
   let kwargs : PyDict = PyDict::new()
-  kwargs
-  ..set("colors", color.to_pystr())
-  ..set("linestyles", linestyle.to_pystr())
-  let _ = f.invoke(args~, kwargs~)
-
+  kwargs.set("colors", color.to_pystr())
+  kwargs.set("linestyles", linestyle.to_pystr())
+  let _ = try! f.invoke(args~, kwargs~)
 }

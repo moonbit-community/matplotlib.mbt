@@ -2,12 +2,13 @@
   "name": "Kaida-Amethyst/matplotlib",
   "version": "0.1.2",
   "deps": {
-    "Kaida-Amethyst/python": "0.1.3"
+    "Kaida-Amethyst/python": "0.1.7"
   },
   "readme": "README.md",
   "repository": "https://github.com/moonbit-community/matplotlib.mbt",
   "license": "Apache-2.0",
   "keywords": [],
   "description": "Draw scientific plots with matplotlib in moonbit",
-  "source": "."
+  "source": ".",
+  "preferred-target": "native"
 }
